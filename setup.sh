@@ -6,11 +6,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Adds the following function to the bashrc file:
 
-echo "Adding ros_dev function to bashrc file"
+echo "Adding ros_dev function to zshrc file"
 
 echo 'ros_dev() {
-  # Check if the correct number of arguments were provided
-  if (( $# % 2 != 0 )); then
+  # Check if the correct number of arguments were provided (need at least 2, and even count)
+  if (( $# < 2 || $# % 2 != 0 )); then
     echo "Usage: ros_dev <container_name1> <project_path1> [<container_name2> <project_path2> ...]"
     return 1
   fi
@@ -22,9 +22,9 @@ echo 'ros_dev() {
     shift 2
 
     # Run docker-compose from the correct directory
-    cd "$SCRIPT_DIR" && docker-compose up -d --build
+    cd "/Users/matthew.macfarquhar/Desktop/viam-projects/ros2-docker-dev" && docker-compose up -d --build
   done
 }
-' >> "$HOME/.bashrc"
+' >> "$HOME/.zshrc"
 
 echo "Done"
